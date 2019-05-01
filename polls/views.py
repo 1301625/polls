@@ -11,7 +11,6 @@ def index(request):
     :param request: 뷰 함수의 필수 인자
     :return: 최종적으로 클라이언트에게 응답할 데이터인 HttpResopnse 객체 반환
     '''
-
     lastest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'lastest_question_list' : lastest_question_list}
     return render(request,'polls/index.html',context)
