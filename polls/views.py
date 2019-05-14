@@ -5,14 +5,16 @@ from django.urls import reverse
 
 from django.views import generic
 
-
+from django.utils import timezone
 # Create your views here.
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'lastest_question_list'
 
     def get_queryset(self):
-        return Question.objects.order_by('-pub_date')[:5]
+        return Question.objects.filter(
+            pub_date__lte=timezone.now()
+        ).order_by('-pub_date')[:5]   #timezone.now보다 pub_date가 작거나 같은 Question을 포함하는 queryset을 반환
 
 # def index(request):
 #     '''
